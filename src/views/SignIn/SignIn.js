@@ -15,6 +15,8 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import { Facebook as FacebookIcon, Google as GoogleIcon } from 'icons';
 
+import axios from 'axios';
+
 const schema = {
   email: {
     presence: { allowEmpty: false, message: 'es requerido' },
@@ -171,8 +173,17 @@ const SignIn = props => {
   };
 
   const handleSignIn = event => {
+    // TODO use config for base_url
+    var apiBaseUrl = 'http://localhost:4000/api/login';
     event.preventDefault();
-    history.push('/');
+    axios.post(apiBaseUrl, {
+      email: formState.values.email,
+      password: formState.values.password
+    })
+    .then(function (response) { 
+      console.log(response)
+      history.push('/');
+    });
   };
 
   const hasError = field =>
