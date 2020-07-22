@@ -15,6 +15,8 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import { Facebook as FacebookIcon, Google as GoogleIcon } from 'icons';
 
+import axios from 'axios';
+
 const schema = {
   email: {
     presence: { allowEmpty: false, message: 'es requerido' },
