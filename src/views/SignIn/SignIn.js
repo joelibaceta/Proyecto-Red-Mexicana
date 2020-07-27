@@ -14,6 +14,11 @@ import {
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import { Facebook as FacebookIcon, Google as GoogleIcon } from 'icons';
+ 
+import FacebookLogin from 'react-facebook-login';
+import GoogleLogin from 'react-google-login';
+
+import axios from 'axios';
 
 const schema = {
   email: {
@@ -170,6 +175,14 @@ const SignIn = props => {
     }));
   };
 
+  const handleFBSignIn = (response) => { 
+    console.log(response);
+    history.push('/');
+  };
+  const handleGoogleSignIn = (response) => {
+    console.log(response);
+  }
+
   const handleSignIn = event => {
     // TODO use config for base_url
     var apiBaseUrl = 'http://localhost:4000/api/login';
@@ -178,10 +191,10 @@ const SignIn = props => {
       email: formState.values.email,
       password: formState.values.password
     })
-    .then(function (response) { 
-      console.log(response)
-      history.push('/');
-    });
+      .then(function (response) { 
+        console.log(response)
+        history.push('/');
+      });
   };
 
   const hasError = field =>
@@ -258,25 +271,23 @@ const SignIn = props => {
                   spacing={2}
                 >
                   <Grid item>
-                    <Button
-                      color="primary"
-                      onClick={handleSignIn}
-                      size="large"
-                      variant="contained"
-                    >
-                      <FacebookIcon className={classes.socialIcon} />
-                      Iniciar con Facebook
-                    </Button>
+                    
+                    <FacebookLogin
+                      appId="634725127251755"
+                      autoLoad
+                      fields="name,email,picture"
+                      callback={handleFBSignIn} 
+                    /> 
                   </Grid>
                   <Grid item>
-                    <Button
-                      onClick={handleSignIn}
-                      size="large"
-                      variant="contained"
-                    >
-                      <GoogleIcon className={classes.socialIcon} />
-                      Iniciar con Google
-                    </Button>
+                     
+                    <GoogleLogin
+                      clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+                      buttonText="Login with Google"
+                      onSuccess={handleGoogleSignIn}
+                      onFailure={handleGoogleSignIn}
+                      cookiePolicy={'single_host_origin'}
+                    /> 
                   </Grid>
                 </Grid>
                 <Typography
@@ -344,6 +355,8 @@ const SignIn = props => {
           </div>
         </Grid>
       </Grid>
+    
+      
     </div>
   );
 };
