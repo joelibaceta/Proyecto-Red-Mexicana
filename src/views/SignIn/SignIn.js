@@ -190,7 +190,7 @@ const SignIn = props => {
   const handleGoogleSignIn = (response) => {
     if (response.accessToken) {
       setLogin(true);
-      history.push('/');
+      history.push('/dashboard');
     } else {
       setLogin(false);
     }
@@ -207,7 +207,7 @@ const SignIn = props => {
     })
       .then(function (response) { 
         console.log(response)
-        history.push('/');
+        history.push('/dashboard');
       });
   };
 
