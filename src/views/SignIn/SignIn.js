@@ -142,6 +142,8 @@ const SignIn = props => {
     errors: {}
   });
 
+  const [login, setLogin] = useState(false);
+
   useEffect(() => {
     const errors = validate(formState.values, schema);
 
@@ -176,6 +178,11 @@ const SignIn = props => {
   };
 
   const handleFBSignIn = (response) => { 
+    if (response.accessToken) {
+      setLogin(true);
+    } else {
+      setLogin(false);
+    }
     console.log(response);
     // history.push('/');
   };
@@ -273,11 +280,10 @@ const SignIn = props => {
                   <Grid item>
                     
                     <FacebookLogin
-                      appId="634725127251755"
-                      autoLoad
+                      appId="634725127251755" 
                       fields="name,email,picture"
                       callback={handleFBSignIn}
-                      render={renderProps => (
+                      render={renderProps => (  
                         <button onClick={renderProps.onClick}>Login with FB</button>
                       )}
                     /> 
