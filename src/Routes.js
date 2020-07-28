@@ -27,7 +27,7 @@ const Routes = () => {
       <Redirect
         exact
         from="/"
-        to="/dashboard"
+        to="/sign-in"
       />
       <RouteWithLayout
         component={DashboardView}
@@ -65,13 +65,13 @@ const Routes = () => {
         layout={MainLayout}
         path="/account"
       />
-            <RouteWithLayout
+      <RouteWithLayout
         component={ExamenesView}
         exact
         layout={MainLayout}
         path="/examenes"
       />
-            <RouteWithLayout
+      <RouteWithLayout
         component={VideosView}
         exact
         layout={MainLayout}

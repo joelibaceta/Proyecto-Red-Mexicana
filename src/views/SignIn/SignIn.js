@@ -177,7 +177,7 @@ const SignIn = props => {
 
   const handleFBSignIn = (response) => { 
     console.log(response);
-    history.push('/');
+    // history.push('/');
   };
   const handleGoogleSignIn = (response) => {
     console.log(response);
