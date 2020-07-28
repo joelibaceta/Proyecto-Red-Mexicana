@@ -180,6 +180,7 @@ const SignIn = props => {
   const handleFBSignIn = (response) => { 
     if (response.accessToken) {
       setLogin(true);
+      history.push('/');
     } else {
       setLogin(false);
     }
@@ -187,6 +188,12 @@ const SignIn = props => {
     // history.push('/');
   };
   const handleGoogleSignIn = (response) => {
+    if (response.accessToken) {
+      setLogin(true);
+      history.push('/');
+    } else {
+      setLogin(false);
+    }
     console.log(response);
   }
 
