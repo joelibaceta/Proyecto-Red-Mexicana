@@ -276,13 +276,16 @@ const SignIn = props => {
                       appId="634725127251755"
                       autoLoad
                       fields="name,email,picture"
-                      callback={handleFBSignIn} 
+                      callback={handleFBSignIn}
+                      render={renderProps => (
+                        <button onClick={renderProps.onClick}>Login with FB</button>
+                      )}
                     /> 
                   </Grid>
                   <Grid item>
                      
                     <GoogleLogin
-                      clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+                      clientId="372312419152-efijfijpro0pihcmc6dkhurb2hierrh9.apps.googleusercontent.com"
                       buttonText="Login with Google"
                       onSuccess={handleGoogleSignIn}
                       onFailure={handleGoogleSignIn}
