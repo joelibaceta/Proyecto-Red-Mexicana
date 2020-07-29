@@ -26,43 +26,38 @@ const Topbar = props => {
   const classes = useStyles();
 
   const [notifications] = useState([]);
+  const handleLogout = () => {
+    sessionStorage.removeItem('login');
+    console.log('Session Login', sessionStorage.getItem('login'));
+    rest.history.push('/sign-in');
+  };
 
   return (
-    <AppBar
-      {...rest}
-      className={clsx(classes.root, className)}
-    >
+    <AppBar {...rest} className={clsx(classes.root, className)}>
       <Toolbar>
         <RouterLink to="/">
-          <img
-            alt="Logo"
-            src="/images/logos/logo01.png"
-          />
+          <img alt="Logo" src="/images/logos/logo01.png" />
         </RouterLink>
-        <h2> Red Mexicana de Enfermeros y Cuidadores </h2> 
+        <h2> Red Mexicana de Enfermeros y Cuidadores </h2>
         <div className={classes.flexGrow} />
         <Hidden mdDown>
           <IconButton color="inherit">
             <Badge
               badgeContent={notifications.length}
               color="primary"
-              variant="dot"
-            >
+              variant="dot">
               <NotificationsIcon />
             </Badge>
           </IconButton>
           <IconButton
             className={classes.signOutButton}
             color="inherit"
-          >
+            onClick={handleLogout}>
             <InputIcon />
           </IconButton>
         </Hidden>
         <Hidden lgUp>
-          <IconButton
-            color="inherit"
-            onClick={onSidebarOpen}
-          >
+          <IconButton color="inherit" onClick={onSidebarOpen}>
             <MenuIcon />
           </IconButton>
         </Hidden>
