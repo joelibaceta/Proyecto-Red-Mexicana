@@ -14,11 +14,14 @@ import {
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import { Facebook as FacebookIcon, Google as GoogleIcon } from 'icons';
- 
+
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
 
 import axios from 'axios';
+import { login } from '../../actions/authAction'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
 
 const schema = {
   email: {
@@ -133,6 +136,11 @@ const useStyles = makeStyles(theme => ({
 const SignIn = props => {
   const { history } = props;
 
+  const { isAuthenticated } = props
+  if (isAuthenticated) {
+    this.props.history.push("/dashboard");
+  }
+
   const classes = useStyles();
 
   const [formState, setFormState] = useState({
@@ -177,7 +185,7 @@ const SignIn = props => {
     }));
   };
 
-  const handleFBSignIn = (response) => { 
+  const handleFBSignIn = (response) => {
     if (response.accessToken) {
       setLogin(true);
       history.push('/');
@@ -198,8 +206,9 @@ const SignIn = props => {
   }
 
   const handleSignIn = event => {
+
     // TODO use config for base_url
-    var apiBaseUrl = 'http://localhost:4000/api/login';
+    var apiBaseUrl = 'https://proyectoredmexicana.herokuapp.com/api/auth/login';
     event.preventDefault();
     axios.post(apiBaseUrl, {
       email: formState.values.email,
@@ -209,6 +218,16 @@ const SignIn = props => {
         console.log(response)
         history.push('/dashboard');
       });
+
+  
+      /*
+    e.preventDefault()
+    const email = formState.values.email
+    const password = formState.values.password
+    const user = { email, password }
+    props.login(user)
+    */
+    
   };
 
   const hasError = field =>
@@ -285,25 +304,25 @@ const SignIn = props => {
                   spacing={2}
                 >
                   <Grid item>
-                    
+
                     <FacebookLogin
-                      appId="634725127251755" 
+                      appId="634725127251755"
                       fields="name,email,picture"
                       callback={handleFBSignIn}
-                      render={renderProps => (  
+                      render={renderProps => (
                         <button onClick={renderProps.onClick}>Login with FB</button>
                       )}
-                    /> 
+                    />
                   </Grid>
                   <Grid item>
-                     
+
                     <GoogleLogin
                       clientId="372312419152-efijfijpro0pihcmc6dkhurb2hierrh9.apps.googleusercontent.com"
                       buttonText="Login with Google"
                       onSuccess={handleGoogleSignIn}
                       onFailure={handleGoogleSignIn}
                       cookiePolicy={'single_host_origin'}
-                    /> 
+                    />
                   </Grid>
                 </Grid>
                 <Typography
@@ -371,8 +390,8 @@ const SignIn = props => {
           </div>
         </Grid>
       </Grid>
-    
-      
+
+
     </div>
   );
 };
@@ -381,4 +400,11 @@ SignIn.propTypes = {
   history: PropTypes.object
 };
 
-export default withRouter(SignIn);
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+})
+
+export default compose(
+  withRouter,
+  connect(mapStateToProps, { login })
+)(SignIn);
