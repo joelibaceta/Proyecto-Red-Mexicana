@@ -305,7 +305,7 @@ const SignIn = props => {
                     <FacebookLogin
                       appId="634725127251755"
                       fields="name,email,picture"
-                      callback={() => handleFBSignIn()}
+                      callback={(response) => handleFBSignIn(response)}
                       render={renderProps => (
                         <button onClick={renderProps.onClick}>Login with FB</button>
                       )}
@@ -316,8 +316,8 @@ const SignIn = props => {
                     <GoogleLogin
                       clientId="372312419152-efijfijpro0pihcmc6dkhurb2hierrh9.apps.googleusercontent.com"
                       buttonText="Login with Google"
-                      onSuccess={() => handleGoogleSignIn()}
-                      onFailure={() => handleGoogleSignIn()}
+                      onSuccess={(response) => handleGoogleSignIn(response)}
+                      onFailure={(response) => handleGoogleSignIn(response)}
                       cookiePolicy={'single_host_origin'}
                     />
                   </Grid>
