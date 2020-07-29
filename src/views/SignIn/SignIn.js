@@ -196,9 +196,11 @@ const SignIn = props => {
   }
 
   const handleFBSignIn = (response) => {
+    console.log("handleFBSignIn")
     vakidateLoginToken(response)
   };
   const handleGoogleSignIn = (response) => {
+    console.log("handleGoogleSignIn")
     vakidateLoginToken(response)
   }
 
