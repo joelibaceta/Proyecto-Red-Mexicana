@@ -12,8 +12,9 @@ import {
 } from '../actions/types'
 
 //const LOCAL_URL = 'http://localhost:4000'
-const DEV_URL = ''
+const DEV_URL = 'https://proyectoredmexicana.herokuapp.com'
 
+/*
 // Check token and loaduser
 export const loadUser = (email) => (dispatch, getState) => {
     // User loading
@@ -40,9 +41,10 @@ export const loadUser = (email) => (dispatch, getState) => {
             })
         })
 }
+*/
 
 // Register user
-export const register = ({ name, email, password, type, ruc }) => dispatch => {
+export const register = ({ firstname, lastname, email, password }) => dispatch => {
     // Config headers
     const config = {
         headers: {
@@ -51,8 +53,8 @@ export const register = ({ name, email, password, type, ruc }) => dispatch => {
     }
 
     // Request 
-    const body = JSON.stringify({ name, email, password, type, ruc })
-    axios.post(`${DEV_URL}/api/register`, body, config)
+    const body = JSON.stringify({ firstname, lastname, email, password })
+    axios.post(`${DEV_URL}/api/user`, body, config)
         .then(res => dispatch({
             type: REGISTER_SUCCESS,
             payload: res.data
@@ -80,12 +82,13 @@ export const login = ({ email, password }) => dispatch => {
 
     // Request 
     const body = JSON.stringify({ email, password })
-    axios.post(`${DEV_URL}/api/login`, body, config)
+    axios.post(`${DEV_URL}/api/auth/login`, body, config)
         .then(res =>  
             dispatch({
                 type: LOGIN_SUCCESS,
                 payload: res.data
-            })
+            }),
+            /*Redirect to dashboard - history*/
         )
         .catch(err => {
             dispatch({
