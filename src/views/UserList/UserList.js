@@ -19,6 +19,18 @@ const UserList = () => {
 
   const [users] = useState(mockData);
 
+  var apiBaseUrl = 'https://proyectoredmexicana.herokuapp.com/api/auth/login';
+    event.preventDefault();
+    axios.post(apiBaseUrl, {
+      email: formState.values.email,
+      password: formState.values.password
+    })
+      .then(function (response) { 
+        console.log(response)
+        history.push('/dashboard');
+      });
+
+
   return (
     <div className={classes.root}>
       <UsersToolbar />
